@@ -9,5 +9,6 @@ public class MapperProfile : Profile
     public MapperProfile()
     {
         CreateMap<Star, StarModel>().ReverseMap();
+        CreateMap<Constellation, ConstellationModel>().ReverseMap();
     }
 }

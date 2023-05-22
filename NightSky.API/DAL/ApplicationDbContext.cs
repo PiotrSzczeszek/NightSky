@@ -8,6 +8,9 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions options) : base(options)
     { }
 
+    public virtual DbSet<Star> Stars { get; set; }
+    public virtual DbSet<Constellation> Constellations { get; set; }
+    public virtual DbSet<SkyData> SkyData { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NightSky.API.DAL;
+using NightSky.API.Services;
 
 namespace NightSky.API.Extensions;
 
@@ -24,6 +25,14 @@ public static class ServicesExtension
     {
         serviceCollection.AddAutoMapper(Assembly.GetCallingAssembly());
         
+        return serviceCollection;
+    }
+
+    public static IServiceCollection RegisterServices(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddTransient<IStarService, StarService>();
+        serviceCollection.AddTransient<IStarsToConstellationsService, StarsToConstellationsService>();
+
         return serviceCollection;
     }
 }

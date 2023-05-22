@@ -1,6 +1,9 @@
 using NightSky.API.Extensions;
+using NightSky.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders().AddConsole();
 
 // Add services to the container.
 
@@ -10,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterDbContext()
-    .RegisterAutoMapper();
+    .RegisterAutoMapper()
+    .RegisterServices();
 
 var app = builder.Build();
 
@@ -20,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.UseHttpsRedirection();
 
