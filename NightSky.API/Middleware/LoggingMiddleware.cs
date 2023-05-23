@@ -23,7 +23,7 @@ public class LoggingMiddleware
         catch (BaseNightSkyException e)
         {
             _logger.LogError(e, "Night sky exception");
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.StatusCode = e.StatusCode;
             await context.Response.WriteAsJsonAsync(e.Errors);
         }
         catch (Exception e)

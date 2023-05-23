@@ -49,31 +49,15 @@ public class StarService : IStarService
 
     public async Task UpdateStar(StarModel model)
     {
-        var existingEntity = await _context.Stars.FirstOrDefaultAsync(e => e.StarId == model.StarId);
-        if (existingEntity is null)
-        {
-            throw new BaseNightSkyException(x =>
-            {
-                x.AddError(Langs.English, "Star does not exists")
-                    .AddError(Langs.Polish, "Gwiazda o podanym id nie istnieje");
-            });
-        }
-
+        var existingEntity = await GetStarById(model.StarId);
+        
         var _ = _mapper.Map(model, existingEntity);
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteStar(int id)
     {
-        var entity = await _context.Stars.FirstOrDefaultAsync(e => e.StarId == id);
-        if (entity is null)
-        {
-            throw new BaseNightSkyException(x =>
-            {
-                x.AddError(Langs.English, "Star does not exists")
-                    .AddError(Langs.Polish, "Gwiazda o podanym id nie istnieje");
-            });
-        }
+        var entity = await GetStarById(id);
 
         _context.Remove(entity);
         await _context.SaveChangesAsync();
@@ -81,16 +65,7 @@ public class StarService : IStarService
 
     public async Task<StarModel> GetById(int id)
     {
-        var entity = await _context.Stars.FirstOrDefaultAsync(e => e.StarId == id);
-        if (entity is null)
-        {
-            throw new BaseNightSkyException(x =>
-            {
-                x.AddError(Langs.English, "Star does not exists")
-                    .AddError(Langs.Polish, "Gwiazda o podanym id nie istnieje");
-            });
-        }
-
+        var entity = await GetStarById(id);
         return _mapper.Map<StarModel>(entity);
     }
 
@@ -100,5 +75,24 @@ public class StarService : IStarService
         var stars = starsEntities.Select(e => _mapper.Map<StarModel>(e));
 
         return stars.ToList();
+    }
+
+    private async Task<Star> GetStarById(int? id)
+    {
+        if (id is null)
+        {
+            throw new BaseNightSkyException(x =>
+            {
+                x.AddError(Langs.English, "Invalid id provided")
+                    .AddError(Langs.Polish, "Podano nieprawidłowy ID");
+            });
+        }
+        var entity = await _context.Stars.FirstOrDefaultAsync(e => e.StarId == id);
+        if (entity is null)
+        {
+            throw new StarDoesNotExistException();
+        }
+
+        return entity;
     }
 }
