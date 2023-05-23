@@ -1,19 +1,11 @@
 <script lang="ts">
-  import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
-  import IconButton from "@smui/icon-button";
-  import Drawer, {
-    AppContent,
-    Content,
-    Header,
-    Subtitle,
-    Scrim,
-  } from "@smui/drawer";
+  import AppHeader from "./components/Header.svelte";
+  import LeftMenu from "./components/LeftMenu.svelte";
+
+  import { AppContent, Scrim } from "@smui/drawer";
   import Button, { Label } from "@smui/button";
-  import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
-  import SegmentedButton, { Segment } from "@smui/segmented-button";
 
-  import { _, locale, locales } from "svelte-i18n";
-
+  import { _ } from "svelte-i18n";
   let open = false;
   let active = "";
 </script>
@@ -41,60 +33,21 @@
 </svelte:head>
 
 <div class="drawer-container">
-  <Drawer variant="modal" bind:open>
-    <Header>
-      <Title>Super Mail</Title>
-      <Subtitle>It's the best fake mail app drawer.</Subtitle>
-    </Header>
-    <Content>
-      <List>
-        <Item href="javascript:void(0)" activated={active === "Inbox"}>
-          <Graphic class="material-icons" aria-hidden="true">inbox</Graphic>
-          <Text>Inbox</Text>
-        </Item>
-      </List>
-    </Content>
-  </Drawer>
-
+  <LeftMenu bind:open />
   <Scrim />
 
   <AppContent class="app-content">
     <main class="main-content">
       <div class="flexy">
         <div class="top-app-bar-container flexor">
-          <TopAppBar variant="short" dense={true} color="secondary">
-            <Row>
-              <Section>
-                <IconButton
-                  class="material-icons"
-                  on:click={() => (open = !open)}>menu</IconButton
-                >
-                <Title>{$_("page.title")}</Title>
-              </Section>
-              {$locale}
-              <Section align="end" toolbar>
-                <SegmentedButton
-                  segments={$locales}
-                  color="secondary"
-                  let:segment
-                  singleSelect
-                  bind:selected={$locale}
-                >
-                  <!-- Note: the `segment` property is required! -->
-                  <Segment {segment}>
-                    <Label>{segment}</Label>
-                  </Segment>
-                </SegmentedButton>
-              </Section>
-            </Row>
-          </TopAppBar>
+          <AppHeader bind:open />
         </div>
       </div>
       <Button on:click={() => (open = !open)}>
-        <Label>Toggle Drawer</Label></Button
-      >
+        <Label>Toggle Drawer</Label>
+      </Button>
       <br />
-      <pre class="status">Active: {active}</pre>
+      <p class="status">Active: {active}</p>
     </main>
   </AppContent>
 </div>

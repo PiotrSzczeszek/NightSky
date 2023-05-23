@@ -4,7 +4,7 @@ import App from './App.svelte'
 // src/i18n.js
 import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
 
-import en from '../locales/en.json';
+import en from '../locales/en-EN.json';
 import pl from '../locales/pl.json';
 
 addMessages('en', en);
