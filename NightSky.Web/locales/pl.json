@@ -13,7 +13,8 @@
     "subtitle": "Wybierz widok",
     "option": {
       "landingPage": "Strona główna",
-      "skyWeather": "Pogoda na niebie"
+      "skyWeather": "Pogoda na niebie",
+      "stars": "Gwiazdy"
     }
   },
   "landingPage": {

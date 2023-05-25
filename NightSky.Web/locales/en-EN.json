@@ -13,7 +13,8 @@
     "subtitle": "Select view",
     "option": {
       "landingPage": "Main page",
-      "skyWeather": "Sky weather"
+      "skyWeather": "Sky weather",
+      "stars": "Stars"
     }
   },
   "landingPage": {
@@ -45,6 +46,17 @@
     "modal": {
       "cancel": "Cancel",
       "save": "Save"
+    }
+  },
+  "star": {
+    "table": {
+      "headers": {
+        "id": "Id",
+        "name": "Name",
+        "description": "Description",
+        "image": "Image",
+        "actions": "Actions"
+      }
     }
   }
 }
