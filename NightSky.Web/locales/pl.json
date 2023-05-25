@@ -2,5 +2,42 @@
   "page": {
     "title": "Nocne niebo",
     "selectLang": "Wybierz język"
+  },
+  "leftMenu": {
+    "title": "Menu",
+    "subtitle": "Wybierz widok",
+    "option": {
+      "landingPage": "Strona główna",
+      "skyWeather": "Pogoda na niebie"
+    }
+  },
+  "landingPage": {
+    "title": "Poznaj nocne niebo",
+    "subtitle": "Podaj stan nieba i zdefiniuj jego kształt"
+  },
+  "langs": {
+    "pl": "Polski",
+    "en": "Angielski"
+  },
+  "skyWeather": {
+    "noData": "Brak danych",
+    "noDataDesc": "Nie podano danych pogodowych dla dnia ",
+    "add": "Dodaj",
+    "date": "Data",
+    "fogLevel": "Poziom mgły",
+    "cloudsLevel": "Poziom zachmurzenia",
+    "precipitationType": "Typ opadów",
+    "noClouds": "Nie ma opadów bez chmur",
+    "precipitationTypes": {
+      "none": "Brak",
+      "rain": "Deszcz",
+      "snow": "Śnieg",
+      "sleet": "Śnieg z deszczem",
+      "hail": "Grad"
+    },
+    "modal": {
+      "cancel": "Anuluj",
+      "save": "Dodaj"
+    }
   }
 }

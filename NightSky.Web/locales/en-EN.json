@@ -2,5 +2,42 @@
   "page": {
     "title": "Night sky",
     "selectLang": "Select language"
+  },
+  "leftMenu": {
+    "title": "Menu",
+    "subtitle": "Select view",
+    "option": {
+      "landingPage": "Main page",
+      "skyWeather": "Sky weather"
+    }
+  },
+  "landingPage": {
+    "title": "Meet night sky",
+    "subtitle": "Define it's state and shape"
+  },
+  "langs": {
+    "pl": "Polish",
+    "en": "English"
+  },
+  "skyWeather": {
+    "noData": "No data",
+    "noDataDesc": "No weather specified for ",
+    "add": "Add",
+    "date": "Date",
+    "fogLevel": "Fog level",
+    "cloudsLevel": "Clouds level",
+    "precipitationType": "Precipitation type",
+    "noClouds": "There is no precipitations without any clouds",
+    "precipitationTypes": {
+      "none": "None",
+      "rain": "Rain",
+      "snow": "Snow",
+      "sleet": "Sleet",
+      "hail": "Hail"
+    },
+    "modal": {
+      "cancel": "Cancel",
+      "save": "Save"
+    }
   }
 }

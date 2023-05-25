@@ -29,6 +29,15 @@ app.UseMiddleware<LoggingMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseCors(x =>
+{
+    // w prawdziwym świecie powinno być tu coś prawdziwego ustawionego
+    x.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
+});
+
 app.UseAuthorization();
 
 app.MapControllers();

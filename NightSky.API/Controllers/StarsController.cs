@@ -15,11 +15,6 @@ public class StarsController : ControllerBase
         _starService = starService;
     }
 
-    /// <summary>
-    /// Creates new star
-    /// </summary>
-    /// <param name="model">New star model</param>
-    /// <returns>URI to new created object</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

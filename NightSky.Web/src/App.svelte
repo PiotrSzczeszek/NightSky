@@ -1,9 +1,8 @@
 <script lang="ts">
   import AppHeader from "./components/Header.svelte";
   import LeftMenu from "./components/LeftMenu.svelte";
-
   import { AppContent, Scrim } from "@smui/drawer";
-  import Button, { Label } from "@smui/button";
+
   import {
     isMobile,
     documentWidth,
@@ -13,11 +12,11 @@
   import { _ } from "svelte-i18n";
   import { onMount } from "svelte";
 
+  import { currentTarget, currentTargetType } from "./stores/TargetsStore";
+
   onMount(() => {
     isLeftMenuOpen.set(!$isMobile);
   });
-
-  let active = "";
 </script>
 
 <svelte:head>
@@ -39,29 +38,35 @@
 
   <!-- SMUI -->
   <link rel="stylesheet" href="https://unpkg.com/svelte-material-ui/bare.css" />
-  <link rel="stylesheet" href="../build/smui-dark.css" />
+  <link rel="stylesheet" href="smui-dark.css" />
 </svelte:head>
 
 <svelte:window bind:innerWidth={$documentWidth} />
 
-<div class="drawer-container">
+<div class="drawer-container h-100">
   <LeftMenu />
   {#if $isMobile}
     <Scrim />
   {/if}
 
-  <AppContent class="app-content">
-    <main class="main-content">
+  <AppContent class="app-content h-100">
+    <main class="main-content h-100">
       <AppHeader />
-      <div class="flexy">
-        <div class="top-app-bar-container flexor" />
+      <div style="flex-grow: 1">
+        {#key $currentTargetType}
+          <svelte:component this={$currentTarget} />
+        {/key}
       </div>
-      <br />
-      {$isLeftMenuOpen}
-      <!-- {$isMobile} -->
     </main>
   </AppContent>
 </div>
 
 <style>
+  :global(.h-100) {
+    height: 100% !important;
+  }
+  .main-content {
+    display: flex;
+    flex-direction: column;
+  }
 </style>

@@ -12,7 +12,7 @@
   let langMenuButton: any;
 </script>
 
-<TopAppBar dense={true} color="primary" variant="static">
+<TopAppBar dense={true} color="secondary" variant="static">
   <Row>
     <Section>
       {#if $isMobile}
@@ -47,8 +47,12 @@
         </Subheader>
         <List dense>
           {#each $locales as lang}
-            <Item on:SMUI:action={() => locale.set(lang)}>
-              <Text>{lang}</Text>
+            <Item
+              activated={lang == $locale}
+              style="color: white"
+              on:SMUI:action={() => locale.set(lang)}
+            >
+              <Text>{$_(`langs.${lang}`)}</Text>
             </Item>
           {/each}
         </List>
