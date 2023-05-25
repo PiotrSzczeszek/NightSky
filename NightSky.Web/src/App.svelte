@@ -2,6 +2,10 @@
   import AppHeader from "./components/Header.svelte";
   import LeftMenu from "./components/LeftMenu.svelte";
   import { AppContent, Scrim } from "@smui/drawer";
+  import Snackbar, { Actions, Label } from "@smui/snackbar";
+
+  import { snackbars } from "./stores/AppStateStore";
+  import IconButton from "@smui/icon-button";
 
   import {
     isMobile,
@@ -11,12 +15,25 @@
 
   import { _ } from "svelte-i18n";
   import { onMount } from "svelte";
+  import Kitchen from "@smui/snackbar/kitchen";
 
   import { currentTarget, currentTargetType } from "./stores/TargetsStore";
 
   onMount(() => {
     isLeftMenuOpen.set(!$isMobile);
   });
+
+  // snackbars.subscribe(() => {
+  //   if (!$snackbars.length) return;
+  //   setTimeout(() => {
+  //     console.log("splice");
+  //     snackbars.update((x) => {
+  //       if (!x.length) return;
+  //       x.splice(0, 1);
+  //       return x;
+  //     });
+  //   }, 5 * 1000);
+  // });
 </script>
 
 <svelte:head>
@@ -60,6 +77,8 @@
     </main>
   </AppContent>
 </div>
+
+<Kitchen bind:this={$snackbars} dismiss$class="material-icons" />
 
 <style>
   :global(.h-100) {

@@ -3,6 +3,11 @@
     "title": "Nocne niebo",
     "selectLang": "Wybierz język"
   },
+  "general": {
+    "getDataError": "Błąd pobierania danych",
+    "dataNotFound": "Nie odnaleziono danych",
+    "dataSaved": "Dane zapisane"
+  },
   "leftMenu": {
     "title": "Menu",
     "subtitle": "Wybierz widok",

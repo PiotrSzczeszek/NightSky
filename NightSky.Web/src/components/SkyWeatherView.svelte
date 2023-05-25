@@ -33,11 +33,9 @@
     tempDate.setDate(tempDate.getDate() + 6);
     const endDate = tempDate;
 
-    const response = await api.get(
+    const response = await api.getRequest(
       `https://localhost:6002/api/sky-data?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
     );
-
-    console.log(response);
   }
 
   async function onShowDataFormClosed({ detail: { action } }) {

@@ -3,6 +3,11 @@
     "title": "Night sky",
     "selectLang": "Select language"
   },
+  "general": {
+    "getDataError": "Error while getting data",
+    "dataNotFound": "Data not found",
+    "dataSaved": "Data saved"
+  },
   "leftMenu": {
     "title": "Menu",
     "subtitle": "Select view",
