@@ -27,6 +27,8 @@
   "skyWeather": {
     "noData": "No data",
     "noDataDesc": "No weather specified for ",
+    "title": "Weather data",
+    "edit": "Edit",
     "add": "Add",
     "date": "Date",
     "fogLevel": "Fog level",

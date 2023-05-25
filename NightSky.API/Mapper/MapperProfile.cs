@@ -10,5 +10,6 @@ public class MapperProfile : Profile
     {
         CreateMap<Star, StarModel>().ReverseMap();
         CreateMap<Constellation, ConstellationModel>().ReverseMap();
+        CreateMap<SkyData, SkyDataModel>().ReverseMap();
     }
 }

@@ -27,6 +27,8 @@
   "skyWeather": {
     "noData": "Brak danych",
     "noDataDesc": "Nie podano danych pogodowych dla dnia ",
+    "title": "Dane pogodowe",
+    "edit": "Edytuj",
     "add": "Dodaj",
     "date": "Data",
     "fogLevel": "Poziom mgły",

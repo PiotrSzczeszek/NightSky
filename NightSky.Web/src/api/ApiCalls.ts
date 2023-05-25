@@ -1,6 +1,6 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { addErrorSnackbar, addSuccessSnackbar } from "../stores/AppStateStore";
-import { _ } from "svelte-i18n";
+import { _, locale } from "svelte-i18n";
 import { get } from "svelte/store";
 
 const a = axios.create({
@@ -10,8 +10,14 @@ const a = axios.create({
 function handleError(e) {
   console.error(e);
   const translations = get(_);
+  const currentLocale = get(locale);
+
+
   let text = translations("general.getDataError");
-  if (e && e.response && e.response.status && e.response.status == 404) {
+  if (e && e.response && e.response.data && e.response.data.length) {
+    const validResponse = e.response.data.find(e => e.lang == currentLocale);
+    text = validResponse.message;
+  } else if (e && e.response && e.response.status && e.response.status == 404) {
     text = translations("general.dataNotFound");
   }
   addErrorSnackbar(text, true, () => { });
@@ -25,7 +31,7 @@ function handleSaveData() {
 
 const getRequest = async (url: string, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> => {
   try {
-    return await axios.get(url, config);
+    return await a.get(url, config);
   }
   catch (e) {
     handleError(e);
@@ -33,9 +39,9 @@ const getRequest = async (url: string, config?: AxiosRequestConfig<any>): Promis
 }
 
 
-const postRequest = async (url: string, data?: AxiosRequestConfig<any>, config?: AxiosRequestConfig<AxiosRequestConfig<any>>): Promise<AxiosResponse<any, any>> => {
+const postRequest = async (url: string, data?: any, config?: AxiosRequestConfig<AxiosRequestConfig<any>>): Promise<AxiosResponse<any, any>> => {
   try {
-    const response = await axios.post(url, config);
+    const response = await a.post(url, data, config);
     handleSaveData();
     return response;
   }
@@ -45,9 +51,9 @@ const postRequest = async (url: string, data?: AxiosRequestConfig<any>, config?:
 }
 
 
-const putRequest = async (url: string, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> => {
+const putRequest = async (url: string, data?: any, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<any, any>> => {
   try {
-    const response = await axios.put(url, config);
+    const response = await a.put(url, data, config);
     handleSaveData();
     return response;
   }
