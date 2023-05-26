@@ -7,13 +7,22 @@ const a = axios.create({
   baseURL: "https://localhost:6002/api"
 });
 
-function handleError(e) {
+function handleGetError(e) {
+  handleError(e, "general.getDataError");
+}
+
+function handleSendError(e) {
+  handleError(e, "general.saveDataError");
+
+}
+
+function handleError(e, defaultTranslationKey: string) {
   console.error(e);
   const translations = get(_);
   const currentLocale = get(locale);
 
 
-  let text = translations("general.getDataError");
+  let text = translations(defaultTranslationKey);
   if (e && e.response && e.response.data && e.response.data.length) {
     const validResponse = e.response.data.find(e => e.lang == currentLocale);
     text = validResponse.message;
@@ -34,7 +43,7 @@ const getRequest = async (url: string, config?: AxiosRequestConfig<any>): Promis
     return await a.get(url, config);
   }
   catch (e) {
-    handleError(e);
+    handleGetError(e);
   }
 }
 
@@ -46,7 +55,7 @@ const postRequest = async (url: string, data?: any, config?: AxiosRequestConfig<
     return response;
   }
   catch (e) {
-    handleError(e);
+    handleSendError(e);
   }
 }
 
@@ -58,12 +67,24 @@ const putRequest = async (url: string, data?: any, config?: AxiosRequestConfig<a
     return response;
   }
   catch (e) {
-    handleError(e);
+    handleSendError(e);
+  }
+}
+
+const deleteRequest = async (url: string): Promise<AxiosResponse<any, any>> => {
+  try {
+    const response = await a.delete(url);
+    // handleSaveData();
+    return response;
+  }
+  catch (e) {
+    handleSendError(e);
   }
 }
 
 export const api = {
   getRequest,
   postRequest,
-  putRequest
+  putRequest,
+  deleteRequest
 }

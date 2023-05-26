@@ -1,12 +1,13 @@
 import { writable, get } from "svelte/store";
 
-import { LandingPageView, SkyWeatherView, Stars } from "../components";
+import { LandingPageView, SkyWeatherView, Stars, Constellations } from "../components";
 import { isMobile, isLeftMenuOpen } from "./AppStateStore";
 
 export type TargetTypes = {
   landingPage: string;
   skyWeather: string;
   stars: string;
+  constallations: string,
 };
 
 type TargetComponentsAssociacions = {
@@ -17,7 +18,8 @@ type TargetComponentsAssociacions = {
 export const targetAssociations: Array<TargetComponentsAssociacions> = [
   { type: "landingPage", component: LandingPageView },
   { type: "skyWeather", component: SkyWeatherView },
-  { type: "stars", component: Stars }
+  { type: "stars", component: Stars },
+  { type: "constallations", component: Constellations }
 ]
 
 export const currentTargetType = writable<keyof TargetTypes>("landingPage");

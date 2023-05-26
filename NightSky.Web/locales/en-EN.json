@@ -5,8 +5,12 @@
   },
   "general": {
     "getDataError": "Error while getting data",
+    "saveDataError": "Error while saving data",
     "dataNotFound": "Data not found",
-    "dataSaved": "Data saved"
+    "dataSaved": "Data saved",
+    "edit": "Edit",
+    "add": "Add",
+    "fieldRequired": "Field required"
   },
   "leftMenu": {
     "title": "Menu",
@@ -14,7 +18,8 @@
     "option": {
       "landingPage": "Main page",
       "skyWeather": "Sky weather",
-      "stars": "Stars"
+      "stars": "Stars",
+      "constallations": "Constellations"
     }
   },
   "landingPage": {
@@ -29,8 +34,6 @@
     "noData": "No data",
     "noDataDesc": "No weather specified for ",
     "title": "Weather data",
-    "edit": "Edit",
-    "add": "Add",
     "date": "Date",
     "fogLevel": "Fog level",
     "cloudsLevel": "Clouds level",
@@ -42,11 +45,11 @@
       "snow": "Snow",
       "sleet": "Sleet",
       "hail": "Hail"
-    },
-    "modal": {
-      "cancel": "Cancel",
-      "save": "Save"
     }
+  },
+  "modal": {
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "star": {
     "table": {
@@ -57,6 +60,29 @@
         "image": "Image",
         "actions": "Actions"
       }
-    }
+    },
+    "id": "Id",
+    "title": "Star",
+    "name": "Star name",
+    "description": "Description",
+    "imageUrl": "Image url",
+    "invalidUrl": "Invalid url"
+  },
+  "constallation": {
+    "table": {
+      "headers": {
+        "id": "Id",
+        "name": "Name",
+        "description": "Description",
+        "image": "Image",
+        "actions": "Actions"
+      }
+    },
+    "id": "Id",
+    "title": "Constellation",
+    "name": "Constellatio name",
+    "description": "Description",
+    "imageUrl": "Image url",
+    "invalidUrl": "Invalid url"
   }
 }

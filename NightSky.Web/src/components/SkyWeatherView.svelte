@@ -163,7 +163,7 @@
             color="secondary"
             on:click={showAddModal}
           >
-            {$_("skyWeather.add")}
+            {$_("general.add")}
           </Button>
         </div>
       {:else}
@@ -222,7 +222,7 @@
             color="secondary"
             on:click={showAddModal}
           >
-            {$_("skyWeather.edit")}
+            {$_("general.edit")}
           </Button>
         </div>
       {/if}
@@ -320,10 +320,10 @@
 
       <Actions>
         <Button action="cancel">
-          <Label>{$_("skyWeather.modal.cancel")}</Label>
+          <Label>{$_("modal.cancel")}</Label>
         </Button>
         <Button action="save" default>
-          <Label>{$_("skyWeather.modal.save")}</Label>
+          <Label>{$_("modal.save")}</Label>
         </Button>
       </Actions>
     </Dialog>

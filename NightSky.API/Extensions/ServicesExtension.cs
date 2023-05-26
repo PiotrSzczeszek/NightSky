@@ -33,6 +33,7 @@ public static class ServicesExtension
         serviceCollection.AddTransient<IStarService, StarService>();
         serviceCollection.AddTransient<IStarsToConstellationsService, StarsToConstellationsService>();
         serviceCollection.AddTransient<ISkyDataService, SkyDataService>();
+        serviceCollection.AddTransient<IConstellationService, ConstellationService>();
         
         return serviceCollection;
     }

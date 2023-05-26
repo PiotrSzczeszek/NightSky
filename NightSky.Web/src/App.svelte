@@ -2,6 +2,7 @@
   import AppHeader from "./components/Header.svelte";
   import LeftMenu from "./components/LeftMenu.svelte";
   import { AppContent, Scrim } from "@smui/drawer";
+  import icon from "/icon.png";
   import Snackbar, { Actions, Label } from "@smui/snackbar";
 
   import { snackbars } from "./stores/AppStateStore";
@@ -56,6 +57,9 @@
   <!-- SMUI -->
   <link rel="stylesheet" href="https://unpkg.com/svelte-material-ui/bare.css" />
   <link rel="stylesheet" href="smui-dark.css" />
+  <title>{$_("page.title")}</title>
+  <link rel="icon" type="image/png" href={icon} />
+  <link rel="apple-touch-icon" href={icon} />
 </svelte:head>
 
 <svelte:window bind:innerWidth={$documentWidth} />

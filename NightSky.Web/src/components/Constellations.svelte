@@ -9,38 +9,42 @@
   import LinearProgress from "@smui/linear-progress";
   import CharacterCounter from "@smui/textfield/character-counter";
   import HelperText from "@smui/textfield/helper-text";
+  import Autocomplete from "@smui-extra/autocomplete";
+  import Chip, { Set, TrailingAction, Text } from "@smui/chips";
 
   import { _ } from "svelte-i18n";
-  import { type StarDataModel } from "../classes/StarData";
+  import { type ConstallationDataModel } from "../classes/ConstallationData";
   import { api } from "../api/ApiCalls";
 
   import { onMount } from "svelte";
+  import type { StarDataModel } from "../classes/StarData";
 
-  let rowData: Array<StarDataModel> = [];
+  let rowData: Array<ConstallationDataModel> = [];
   let loaded = false;
   let dialogOpen = false;
-  let model: StarDataModel;
+  let model: ConstallationDataModel;
   let urlInvalid = false;
   let nameInvalid = false;
 
+  let availableStars: Array<StarDataModel> = [];
+
   function openAddForm() {
     model = {
-      starName: "",
-      description: "",
+      name: "",
       imageUrl: "",
-      constallations: [],
+      stars: [],
     };
 
     dialogOpen = true;
   }
 
-  function editElement(row: StarDataModel) {
+  function editElement(row: ConstallationDataModel) {
     model = row;
     dialogOpen = true;
   }
 
-  async function deleteElement(row: StarDataModel) {
-    await api.deleteRequest(`stars/${row.starId}`);
+  async function deleteElement(row: ConstallationDataModel) {
+    await api.deleteRequest(`constallations/${row.constallationId}`);
 
     await loadData();
   }
@@ -54,20 +58,26 @@
 
   async function loadData() {
     loaded = false;
-    const { data } = await api.getRequest("stars");
+    const { data } = await api.getRequest("constallations");
     rowData = data;
     loaded = true;
   }
   async function saveData() {
-    if (model.starId) {
-      await api.putRequest("stars", model);
+    if (model.constallationId) {
+      await api.putRequest("constallations", model);
     } else {
-      await api.postRequest("stars", model);
+      await api.postRequest("constallations", model);
     }
+  }
+  async function getAvailableStars() {
+    const { data } = await api.getRequest("stars");
+    availableStars = data;
+    console.log(availableStars);
   }
 
   onMount(async () => {
     await loadData();
+    await getAvailableStars();
   });
 </script>
 
@@ -81,28 +91,30 @@
     {$_("general.add")}
   </Button>
 </div>
-<DataTable table$aria-label="Stars list" style="width: 100%;">
+<DataTable table$aria-label="Constallations list" style="width: 100%;">
   <Head>
     <Row>
-      <Cell>{$_("star.table.headers.id")}</Cell>
-      <Cell>{$_("star.table.headers.name")}</Cell>
-      <Cell>{$_("star.table.headers.description")}</Cell>
-      <Cell style="text-align: center">{$_("star.table.headers.image")}</Cell>
-      <Cell style="text-align: center">{$_("star.table.headers.actions")}</Cell>
+      <Cell>{$_("constallation.table.headers.id")}</Cell>
+      <Cell>{$_("constallation.table.headers.name")}</Cell>
+      <Cell style="text-align: center"
+        >{$_("constallation.table.headers.image")}</Cell
+      >
+      <Cell style="text-align: center"
+        >{$_("constallation.table.headers.actions")}</Cell
+      >
     </Row>
   </Head>
   <Body>
     {#each rowData as row}
       <Row>
-        <Cell>{row.starId}</Cell>
-        <Cell style="max-width: 100px;">{row.starName}</Cell>
-        <Cell style="max-width: 250px">{row.description}</Cell>
+        <Cell>{row.constallationId}</Cell>
+        <Cell style="max-width: 100px;">{row.name}</Cell>
         <Cell style="text-align: center">
           {#if row.imageUrl}
             <img
               style="max-width: 100px; max-height: 100px"
               src={row.imageUrl}
-              alt="Star"
+              alt="Constallation"
             />
           {:else}
             <span>-</span>
@@ -138,16 +150,16 @@
     style="min-width: 400px"
     on:SMUIDialog:closed={onFormClosed}
   >
-    <Title id="event-title">{$_("star.title")}</Title>
+    <Title id="event-title">{$_("constallation.title")}</Title>
     <Content id="event-content" style="min-width: min(500px, 90vw)">
       <FormField
         style="display: flex; flex-direction: column-reverse; margin-top: 1rem"
       >
-        {#if model.starId}
+        {#if model.constallationId}
           <Textfield
             style="width: 100%;"
-            value={model.starId}
-            label={$_("star.id")}
+            value={model.constallationId}
+            label={$_("constallation.id")}
             type="number"
             disabled
           />
@@ -159,8 +171,8 @@
       >
         <Textfield
           style="width: 100%;"
-          bind:value={model.starName}
-          label={$_("star.name")}
+          bind:value={model.name}
+          label={$_("constallation.name")}
           input$maxlength={50}
           bind:invalid={nameInvalid}
           updateInvalid
@@ -176,7 +188,7 @@
       </FormField>
 
       <FormField
-        style="width: 100%; display: flex; flex-direction: column; align-items: start; margin-top: 1rem"
+        style="width: 100%; display: flex; flex-direction: column; align-items: constallationt; margin-top: 1rem"
       >
         <Textfield
           type="url"
@@ -184,30 +196,41 @@
           bind:invalid={urlInvalid}
           updateInvalid
           bind:value={model.imageUrl}
-          label={$_("star.imageUrl")}
+          label={$_("constallation.imageUrl")}
           input$maxlength={250}
         >
           <svelte:fragment slot="helper">
             <HelperText validationMsg>
-              {$_("star.invalidUrl")}
+              {$_("constallation.invalidUrl")}
             </HelperText>
           </svelte:fragment>
         </Textfield>
       </FormField>
 
       <FormField
-        style="display: flex; flex-direction: column-reverse; margin-top: 1rem"
+        style="width: 100%; display: flex; flex-direction: column; align-items: constallationt; margin-top: 1rem"
       >
-        <Textfield
-          style="width: 100%;"
-          bind:value={model.description}
-          label={$_("star.description")}
-          type="text"
-          textarea
-          input$maxlength={500}
-        >
-          <CharacterCounter slot="internalCounter">0 / 500</CharacterCounter>
-        </Textfield>
+        <div class="status">
+          <pre style="display: inline-block;">Selected:</pre>
+          <!-- <Set style="display: inline-block;" bind:chips={model.stars} let:chip>
+            <Chip {chip}>
+              <Text tabindex={0}>{chip.starName}</Text>
+              <TrailingAction icon$class="material-icons">cancel</TrailingAction
+              >
+            </Chip>
+          </Set> -->
+        </div>
+        {#if availableStars && availableStars.length}
+          <Autocomplete
+            options={availableStars}
+            bind:value={model.stars}
+            label="Stars"
+            getOptionLabel={(option) => {
+              console.log(option);
+              return option ? option.starName : "";
+            }}
+          />
+        {/if}
       </FormField>
     </Content>
 

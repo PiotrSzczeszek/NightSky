@@ -5,8 +5,12 @@
   },
   "general": {
     "getDataError": "Błąd pobierania danych",
+    "saveDataError": "Błąd zapisu danych",
     "dataNotFound": "Nie odnaleziono danych",
-    "dataSaved": "Dane zapisane"
+    "dataSaved": "Dane zapisane",
+    "edit": "Edytuj",
+    "add": "Dodaj",
+    "fieldRequired": "Pole wymagane"
   },
   "leftMenu": {
     "title": "Menu",
@@ -14,7 +18,8 @@
     "option": {
       "landingPage": "Strona główna",
       "skyWeather": "Pogoda na niebie",
-      "stars": "Gwiazdy"
+      "stars": "Gwiazdy",
+      "constallations": "Konstelacje"
     }
   },
   "landingPage": {
@@ -29,8 +34,6 @@
     "noData": "Brak danych",
     "noDataDesc": "Nie podano danych pogodowych dla dnia ",
     "title": "Dane pogodowe",
-    "edit": "Edytuj",
-    "add": "Dodaj",
     "date": "Data",
     "fogLevel": "Poziom mgły",
     "cloudsLevel": "Poziom zachmurzenia",
@@ -42,10 +45,44 @@
       "snow": "Śnieg",
       "sleet": "Śnieg z deszczem",
       "hail": "Grad"
-    },
-    "modal": {
-      "cancel": "Anuluj",
-      "save": "Dodaj"
     }
+  },
+  "modal": {
+    "cancel": "Anuluj",
+    "save": "Zapisz"
+  },
+  "star": {
+    "table": {
+      "headers": {
+        "id": "Id",
+        "name": "Name",
+        "description": "Description",
+        "image": "Image",
+        "actions": "Actions"
+      }
+    },
+    "id": "Id",
+    "title": "Gwiazda",
+    "name": "Nazwa gwiazdy",
+    "description": "Opis",
+    "imageUrl": "Link do zdjęcia",
+    "invalidUrl": "Nieprawidłowy link"
+  },
+  "constallation": {
+    "table": {
+      "headers": {
+        "id": "Id",
+        "name": "Name",
+        "description": "Description",
+        "image": "Image",
+        "actions": "Actions"
+      }
+    },
+    "id": "Id",
+    "title": "Konstelacja",
+    "name": "Nazwa konstelacji",
+    "description": "Opis",
+    "imageUrl": "Link do zdjęcia",
+    "invalidUrl": "Nieprawidłowy link"
   }
 }
