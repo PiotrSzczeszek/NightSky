@@ -51,7 +51,7 @@ public class ConstellationService : IConstellationService
     {
         var existingEntity = await GetConstellationById(model.ConstallationId);
         
-        var _ = _mapper.Map(model, existingEntity);
+        _mapper.Map(model, existingEntity);
         await _context.SaveChangesAsync();
     }
 
@@ -71,7 +71,7 @@ public class ConstellationService : IConstellationService
 
     public async Task<ICollection<ConstellationModel>> GetAll()
     {
-        var starsEntities = await _context.Constellations.ToListAsync();
+        var starsEntities = await _context.Constellations.Include(e => e.Stars).ToListAsync();
         var stars = starsEntities.Select(e => _mapper.Map<ConstellationModel>(e));
 
         return stars.ToList();
@@ -87,7 +87,9 @@ public class ConstellationService : IConstellationService
                     .AddError(Langs.Polish, "Podano nieprawidłowy ID");
             });
         }
-        var entity = await _context.Constellations.FirstOrDefaultAsync(e => e.ConstallationId == id);
+        var entity = await _context.Constellations
+            .Include(e => e.Stars)
+            .FirstOrDefaultAsync(e => e.ConstallationId == id);
         if (entity is null)
         {
             throw new ConstellationDoesNotExistException();

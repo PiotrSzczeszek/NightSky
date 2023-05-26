@@ -11,8 +11,8 @@ using NightSky.API.DAL;
 namespace NightSky.Migrations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230522211222_Update")]
-    partial class Update
+    [Migration("20230526184044_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

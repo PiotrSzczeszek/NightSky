@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NightSky.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,7 +42,7 @@ namespace NightSky.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Star",
+                name: "Stars",
                 columns: table => new
                 {
                     StarId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -53,7 +53,7 @@ namespace NightSky.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Star", x => x.StarId);
+                    table.PrimaryKey("PK_Stars", x => x.StarId);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,9 +73,9 @@ namespace NightSky.Migrations.Migrations
                         principalColumn: "ConstallationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ConstellationStar_Star_StarsStarId",
+                        name: "FK_ConstellationStar_Stars_StarsStarId",
                         column: x => x.StarsStarId,
-                        principalTable: "Star",
+                        principalTable: "Stars",
                         principalColumn: "StarId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -99,7 +99,7 @@ namespace NightSky.Migrations.Migrations
                 name: "Constellation");
 
             migrationBuilder.DropTable(
-                name: "Star");
+                name: "Stars");
         }
     }
 }

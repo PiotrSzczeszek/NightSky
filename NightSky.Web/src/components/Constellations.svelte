@@ -25,6 +25,7 @@
   let model: ConstallationDataModel;
   let urlInvalid = false;
   let nameInvalid = false;
+  let selectedStar;
 
   let availableStars: Array<StarDataModel> = [];
 
@@ -72,9 +73,26 @@
   async function getAvailableStars() {
     const { data } = await api.getRequest("stars");
     availableStars = data;
-    console.log(availableStars);
   }
 
+  function starOptionLabelFormatter(option) {
+    return option ? option.starName : "";
+  }
+
+  function handleSelection(event: CustomEvent<StarDataModel>) {
+    // Don't actually select the item.
+    event.preventDefault();
+
+    // // You could also set value back to '' here.
+    model.stars.push(event.detail);
+    model = model;
+
+    selectedStar = null;
+    // // Make sure the chips get updated.
+    // selected = selected;
+
+    // selector.focus();
+  }
   onMount(async () => {
     await loadData();
     await getAvailableStars();
@@ -212,23 +230,23 @@
       >
         <div class="status">
           <pre style="display: inline-block;">Selected:</pre>
-          <!-- <Set style="display: inline-block;" bind:chips={model.stars} let:chip>
+          <Set style="display: inline-block;" bind:chips={model.stars} let:chip>
             <Chip {chip}>
               <Text tabindex={0}>{chip.starName}</Text>
               <TrailingAction icon$class="material-icons">cancel</TrailingAction
               >
             </Chip>
-          </Set> -->
+          </Set>
         </div>
         {#if availableStars && availableStars.length}
           <Autocomplete
-            options={availableStars}
-            bind:value={model.stars}
+            options={availableStars.filter(
+              (e) => !model.stars?.some((x) => x.starId == e.starId)
+            )}
+            bind:value={selectedStar}
             label="Stars"
-            getOptionLabel={(option) => {
-              console.log(option);
-              return option ? option.starName : "";
-            }}
+            getOptionLabel={starOptionLabelFormatter}
+            on:SMUIAutocomplete:selected={handleSelection}
           />
         {/if}
       </FormField>

@@ -1,7 +1,13 @@
+using System.Text.Json.Serialization;
 using NightSky.API.Extensions;
 using NightSky.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;;
+});
 
 builder.Logging.ClearProviders().AddConsole();
 
