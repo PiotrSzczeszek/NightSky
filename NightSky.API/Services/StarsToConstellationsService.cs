@@ -22,7 +22,7 @@ public class StarsToConstellationsService : IStarsToConstellationsService
 
     public async Task AddStarToConstellation(int starId, int constellationId)
     {
-        var star = await _context.Stars.FirstOrDefaultAsync(e => e.StarId == starId);
+        var star = await _context.Stars.Include(e => e.Constallations).FirstOrDefaultAsync(e => e.StarId == starId);
         if (star is null)
         {
             throw new BaseNightSkyException(x =>

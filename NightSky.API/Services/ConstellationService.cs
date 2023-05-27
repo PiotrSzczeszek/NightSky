@@ -15,18 +15,22 @@ public interface IConstellationService
     public Task DeleteConstellation(int id);
     public Task<ConstellationModel> GetById(int id);
     public Task<ICollection<ConstellationModel>> GetAll();
-
 }
 
 public class ConstellationService : IConstellationService
 {
     private readonly IMapper _mapper;
+    private readonly IStarsToConstellationsService _starsToConstellationsService;
+    private readonly IStarService _starService;
     private readonly ApplicationDbContext _context;
 
-    public ConstellationService(ApplicationDbContext context, IMapper mapper)
+    public ConstellationService(ApplicationDbContext context, IMapper mapper,
+        IStarsToConstellationsService starsToConstellationsService, IStarService starService)
     {
         _context = context;
         _mapper = mapper;
+        _starsToConstellationsService = starsToConstellationsService;
+        _starService = starService;
     }
 
     public async Task<int> AddConstellation(ConstellationModel model)
@@ -39,10 +43,23 @@ public class ConstellationService : IConstellationService
                     .AddError(Langs.Polish, "Gwiazda o tym id już istnieje");
             });
         }
-        
-        var entity = _mapper.Map<Constellation>(model);
+
+        var stars = new List<StarModel>();
+
+        if (model.Stars.Any())
+        {
+            stars = model.Stars;
+            model.Stars = new List<StarModel>();
+        }
+
+        var entity = _mapper.Map<ConstellationModel, Constellation>(model, opt => { opt.AfterMap(AddOrUpdateStars); });
         _context.Add(entity);
         await _context.SaveChangesAsync();
+
+        foreach (var star in stars)
+        {
+            await _starsToConstellationsService.AddStarToConstellation(star.StarId!.Value, entity.ConstallationId);
+        }
 
         return entity.ConstallationId;
     }
@@ -50,8 +67,8 @@ public class ConstellationService : IConstellationService
     public async Task UpdateConstellation(ConstellationModel model)
     {
         var existingEntity = await GetConstellationById(model.ConstallationId);
-        
-        _mapper.Map(model, existingEntity);
+
+        _mapper.Map(model, existingEntity, opt => { opt.AfterMap(AddOrUpdateStars); });
         await _context.SaveChangesAsync();
     }
 
@@ -87,6 +104,7 @@ public class ConstellationService : IConstellationService
                     .AddError(Langs.Polish, "Podano nieprawidłowy ID");
             });
         }
+
         var entity = await _context.Constellations
             .Include(e => e.Stars)
             .FirstOrDefaultAsync(e => e.ConstallationId == id);
@@ -96,5 +114,18 @@ public class ConstellationService : IConstellationService
         }
 
         return entity;
+    }
+
+    private void AddOrUpdateStars(ConstellationModel afterMapModel, Constellation entity)
+    {
+        foreach (var star in entity.Stars.Where(x => !afterMapModel.Stars.Any(e => e.StarId == x.StarId)))
+        {
+            entity.Stars.Remove(star);
+        }
+
+        foreach (var star in afterMapModel.Stars.Where(star => !entity.Stars.Any(x => x.StarId == star.StarId)))
+        {
+            entity.Stars.Add(_mapper.Map<Star>(star));
+        }
     }
 }

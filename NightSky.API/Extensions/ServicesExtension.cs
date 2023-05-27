@@ -1,4 +1,6 @@
 using System.Reflection;
+using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using Microsoft.EntityFrameworkCore;
 using NightSky.API.DAL;
 using NightSky.API.Services;
