@@ -8,6 +8,10 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions options) : base(options)
     { }
 
+    public ApplicationDbContext()
+    {
+        
+    }
 
     public virtual DbSet<Star> Stars { get; set; }
     public virtual DbSet<Constellation> Constellations { get; set; }

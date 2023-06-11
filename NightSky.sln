@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NightSky.API", "NightSky.AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NightSky.Migrations", "NightSky.Migrations\NightSky.Migrations.csproj", "{B614453A-6E18-4655-9DF5-53F1AD3F8ED3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NightSky.UnitTests", "NightSky.UnitTests\NightSky.UnitTests.csproj", "{6CBA6B33-6F0B-4BD0-9990-66CB2F751D65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B614453A-6E18-4655-9DF5-53F1AD3F8ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B614453A-6E18-4655-9DF5-53F1AD3F8ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B614453A-6E18-4655-9DF5-53F1AD3F8ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CBA6B33-6F0B-4BD0-9990-66CB2F751D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CBA6B33-6F0B-4BD0-9990-66CB2F751D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CBA6B33-6F0B-4BD0-9990-66CB2F751D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CBA6B33-6F0B-4BD0-9990-66CB2F751D65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

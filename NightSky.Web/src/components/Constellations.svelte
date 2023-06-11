@@ -229,11 +229,11 @@
         style="width: 100%; display: flex; flex-direction: column; align-items: constallationt; margin-top: 1rem"
       >
         <div class="status">
-          <pre style="display: inline-block;">Selected:</pre>
           <Set style="display: inline-block;" bind:chips={model.stars} let:chip>
             <Chip {chip}>
               <Text tabindex={0}>{chip.starName}</Text>
-              <TrailingAction icon$class="material-icons">cancel</TrailingAction
+              <TrailingAction icon$class="material-icons"
+                >{$_("general.cancel")}</TrailingAction
               >
             </Chip>
           </Set>
@@ -244,7 +244,7 @@
               (e) => !model.stars?.some((x) => x.starId == e.starId)
             )}
             bind:value={selectedStar}
-            label="Stars"
+            label={$_("constallation.stars")}
             getOptionLabel={starOptionLabelFormatter}
             on:SMUIAutocomplete:selected={handleSelection}
           />

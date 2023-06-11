@@ -10,6 +10,7 @@
     "dataSaved": "Data saved",
     "edit": "Edit",
     "add": "Add",
+    "cancel": "Cancel",
     "fieldRequired": "Field required"
   },
   "leftMenu": {
@@ -84,6 +85,7 @@
     "name": "Constellatio name",
     "description": "Description",
     "imageUrl": "Image url",
-    "invalidUrl": "Invalid url"
+    "invalidUrl": "Invalid url",
+    "stars": "Stars"
   }
 }

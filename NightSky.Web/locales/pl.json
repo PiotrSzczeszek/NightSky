@@ -10,6 +10,7 @@
     "dataSaved": "Dane zapisane",
     "edit": "Edytuj",
     "add": "Dodaj",
+    "cancel": "Anuluj",
     "fieldRequired": "Pole wymagane"
   },
   "leftMenu": {
@@ -56,10 +57,10 @@
     "table": {
       "headers": {
         "id": "Id",
-        "name": "Name",
-        "description": "Description",
-        "image": "Image",
-        "actions": "Actions"
+        "name": "Nazwa",
+        "description": "Opis",
+        "image": "Zdjęcie",
+        "actions": "Akcje"
       }
     },
     "id": "Id",
@@ -73,10 +74,10 @@
     "table": {
       "headers": {
         "id": "Id",
-        "name": "Name",
-        "description": "Description",
-        "image": "Image",
-        "actions": "Actions"
+        "name": "Nazwa",
+        "description": "Opis",
+        "image": "Zdjęcie",
+        "actions": "Akcje"
       }
     },
     "id": "Id",
@@ -84,6 +85,7 @@
     "name": "Nazwa konstelacji",
     "description": "Opis",
     "imageUrl": "Link do zdjęcia",
-    "invalidUrl": "Nieprawidłowy link"
+    "invalidUrl": "Nieprawidłowy link",
+    "stars": "Gwiazdy"
   }
 }

@@ -21,16 +21,15 @@ public class ConstellationService : IConstellationService
 {
     private readonly IMapper _mapper;
     private readonly IStarsToConstellationsService _starsToConstellationsService;
-    private readonly IStarService _starService;
+
     private readonly ApplicationDbContext _context;
 
     public ConstellationService(ApplicationDbContext context, IMapper mapper,
-        IStarsToConstellationsService starsToConstellationsService, IStarService starService)
+        IStarsToConstellationsService starsToConstellationsService)
     {
         _context = context;
         _mapper = mapper;
         _starsToConstellationsService = starsToConstellationsService;
-        _starService = starService;
     }
 
     public async Task<int> AddConstellation(ConstellationModel model)
@@ -118,12 +117,14 @@ public class ConstellationService : IConstellationService
 
     private void AddOrUpdateStars(ConstellationModel afterMapModel, Constellation entity)
     {
-        foreach (var star in entity.Stars.Where(x => !afterMapModel.Stars.Any(e => e.StarId == x.StarId)))
+        if (entity.Stars is null) return;
+        
+        foreach (var star in entity.Stars.Where(x => afterMapModel.Stars.All(e => e.StarId != x.StarId)))
         {
             entity.Stars.Remove(star);
         }
 
-        foreach (var star in afterMapModel.Stars.Where(star => !entity.Stars.Any(x => x.StarId == star.StarId)))
+        foreach (var star in afterMapModel.Stars.Where(star => entity.Stars.All(x => x.StarId != star.StarId)))
         {
             entity.Stars.Add(_mapper.Map<Star>(star));
         }
